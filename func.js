@@ -1,4 +1,4 @@
-    document.getElementById("registrationForm").addEventListener("submit", function (event) {
+document.getElementById("registrationForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
   let name = document.getElementById("name").value.trim();
@@ -10,20 +10,20 @@
 
   // Basic validation
   if (name === "" || email === "" || password === "" || confirmPassword === "" || age === "") {
-    errorMessage.textContent = " All fields are required.";
+    errorMessage.textContent = "All fields are required.";
     return;
   }
 
   // Email format check
   let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
   if (!email.match(emailPattern)) {
-    errorMessage.textContent = " Please enter a valid email address.";
+    errorMessage.textContent = "Please enter a valid email address.";
     return;
   }
 
   // Password length
   if (password.length < 6) {
-    errorMessage.textContent = " Password must be at least 6 characters.";
+    errorMessage.textContent = "Password must be at least 6 characters.";
     return;
   }
 
@@ -39,11 +39,12 @@
     return;
   }
 
-  // If all good
+  // If all good - Now send data to Google Sheets
   errorMessage.style.color = "green";
-    errorMessage.textContent = "Submitting...";
+  errorMessage.textContent = "Submitting...";
 
-  const scriptURL = "https://script.google.com/a/macros/tcetmumbai.in/s/AKfycbx80JgCKskBgovoowP4WiVzZ67kBoxUMmLY1Ag3JH6S0d_vw38opqEJqwj888MalbAE/exec"; 
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxeexK0DiQkvm3tqw8e1l3fNSDxm26ShqlbgfYmT5mBDHhJHPx3yAACwKB5MRfBB7Wt/exec";
+
   const formData = new FormData();
   formData.append("name", name);
   formData.append("email", email);
@@ -60,4 +61,4 @@
       errorMessage.textContent = "Error submitting form!";
       console.error("Error!", error);
     });
-});   
+});
