@@ -41,6 +41,23 @@
 
   // If all good
   errorMessage.style.color = "green";
-  errorMessage.textContent = " Registration successful!";
-  this.reset();  
-});
+    errorMessage.textContent = "Submitting...";
+
+  const scriptURL = "https://script.google.com/a/macros/tcetmumbai.in/s/AKfycbx80JgCKskBgovoowP4WiVzZ67kBoxUMmLY1Ag3JH6S0d_vw38opqEJqwj888MalbAE/exec"; 
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("email", email);
+  formData.append("password", password);
+  formData.append("age", age);
+
+  fetch(scriptURL, { method: "POST", body: formData })
+    .then(response => {
+      errorMessage.textContent = "Registration successful!";
+      document.getElementById("registrationForm").reset();
+    })
+    .catch(error => {
+      errorMessage.style.color = "red";
+      errorMessage.textContent = "Error submitting form!";
+      console.error("Error!", error);
+    });
+});   
